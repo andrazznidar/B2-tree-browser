@@ -1,5 +1,11 @@
-nav {
+h1 {
+  text-align: center;
+}
+
+nav,
+#preview {
   padding: 2px;
+  margin-top: 10px;
 }
 
 nav details,
@@ -10,7 +16,8 @@ nav a {
 }
 
 @media (pointer: fine) {
-  nav {
+  nav,
+  #preview {
     padding: 2px;
   }
 

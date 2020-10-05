@@ -52,4 +52,22 @@ async function getTree() {
   document.getElementById("tree").innerHTML = body;
 }
 
-getTree();
+// This function 'interceptClicks()' is modified from a snippet published on the website stackoverflow (https://stackoverflow.com/a/21518470) and as such is licensed as CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). The original stackoverflow anwser was made by Matt Way (https://stackoverflow.com/users/277697/matt-way) that was additionally modified by user2742371.
+const interceptClicks = async () => {
+  const result = await getTree();
+  if (screen.width > 992) {
+    // This part of the function is s modified from a snippet published on the website codeproject (https://www.codeproject.com/Answers/525918/Displaypluscontentplusofpluslinkplusinplusparticul#answer1). The original codeproject anwser was made by ramukhsakarp (https://www.codeproject.com/script/Membership/View.aspx?mid=7652198).
+    $(document).ready(function () {
+      $("#tree a").click(function (e) {
+        e.preventDefault();
+        $("#preview").attr("data", $(this).attr("href"));
+        $("#preview").attr(
+          "class",
+          "border border-primary rounded col-lg-7 m-1"
+        );
+      });
+    });
+  }
+};
+
+interceptClicks();
