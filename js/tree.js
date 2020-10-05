@@ -6,6 +6,7 @@ var filetype = "";
 var foldername = "";
 var path = "";
 
+// This function 'traverse(obj)' is modified from a snippet published on the website stackoverflow (https://stackoverflow.com/a/10460119) and as such is licensed as CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). The original stackoverflow anwser was made by El Ronnoco (https://stackoverflow.com/users/395628/el-ronnoco) that was additionally modified by user1371896 (https://stackoverflow.com/users/1371896/user1371896) and OCDev (https://stackoverflow.com/users/508558/ocdev).
 function traverse(obj) {
   var k;
   var folderlength;
