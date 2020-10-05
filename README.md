@@ -9,9 +9,9 @@ Upload this file `tree.json` to the B2 or serve it with this static website.
 
 Set up `urlPrefix` and `treeUrl` const variables in the begining of the `./js/tree.js` file.
 For `urlPrefix` use full B2 URL, including protocol, bucket and a trailing `/`.
->Example: `https://f002.backblazeb2.com/myBucket/`
+>Example: `https://f002.backblazeb2.com/file/myBucket/`
 
 For `treeUrl` use the URL to the JSON file `tree.json` that we created previously.
->Example: `https://f002.backblazeb2.com/myBucket/tree.json` or `../data/outputOftree.json`
+>Example: `https://f002.backblazeb2.com/file/myBucket/tree.json` or `../data/outputOftree.json`
 
 Serve your website with your favourite static website host like [Github Pages](https://pages.github.com/).
