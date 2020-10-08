@@ -132,14 +132,14 @@ const interceptClicks = async () => {
             .getElementById("preview")
             .setAttribute(
               "class",
-              "border border-primary rounded col-lg-7 ml-lg-1 center w-100"
+              "border border-primary rounded col-lg-7 ml-lg-1 center h-100"
             );
         } else {
           document
             .getElementById("preview")
             .setAttribute(
               "class",
-              "border border-primary rounded col-lg-7 ml-lg-1 center w-100 h-100"
+              "border border-primary rounded col-lg-7 ml-lg-1 center"
             );
         };
       });
