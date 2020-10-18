@@ -2,8 +2,10 @@
 Browse Backblaze B2 with a generated JSON file tree using a static website.
 
 
-# Usage
+## Usage
 Generate JSON tree file with `tree -J . > tree.json` command on your local machine in the directory where files and folders are uploaded to the Backblaze B2 with `b2 sync . b2://myBucket/`
+>MacOS users might want to use: `b2 sync --excludeRegex '.*\/\..*' --excludeRegex '\.DS_Store' . b2://myBucket/`
+>`tree` command, by default, does not include files starting with `.`
 
 Upload this file `tree.json` to the B2 or serve it with this static website.
 
