@@ -1,5 +1,5 @@
-const urlPrefix = ""; // Full B2 URL, including protocol, bucket and trailing '/'. Example: "https://f002.backblazeb2.com/file/myBucket/"
-const treeUrl = ""; // URL to the JSON file containing output of the 'tree -J .' command run in the root directory of files in the B2 bucket. Example: "https://f002.backblazeb2.com/file/myBucket/tree.json" or "../data/outputOftree.json"
+const urlPrefix = "https://b2.žnidar.org/file/BackBazeB2-tree-browser-demo-bucket/"; // Full B2 URL, including protocol, bucket and trailing '/'. Example: "https://f002.backblazeb2.com/file/myBucket/"
+const treeUrl = "https://b2.žnidar.org/file/BackBazeB2-tree-browser-demo-bucket/tree.json"; // URL to the JSON file containing output of the 'tree -J .' command run in the root directory of files in the B2 bucket. Example: "https://f002.backblazeb2.com/file/myBucket/tree.json" or "../data/outputOftree.json"
 
 var body = "";
 var filetype = "";
