@@ -5,6 +5,8 @@ var body = "";
 var filetype = "";
 var foldername = "";
 var path = "";
+var datalist = "";
+var branch = null;
 
 const imageFileExtension = [
   "gif",
@@ -62,6 +64,7 @@ function traverse(obj) {
           path += foldername + "/";
           folderlength = foldername.length + 1;
           body += "<details><summary>" + foldername + "</summary>";
+          datalist += (`<option value="${path}" label="${foldername}">`);
           traverse(obj[k]);
           path = path.slice(0, path.length - folderlength);
           body += "</details>";
@@ -77,6 +80,7 @@ function traverse(obj) {
     if (filetype == "file") {
       let url = urlPrefix;
       url += encodeS3URI(path + obj);
+      datalist += (`<option value="${path + obj}" label="${obj}">`);
 
       body += '<a href="' + url + '" target="_blank">' + obj + "</a>" + "<br/>";
     }
@@ -95,6 +99,7 @@ async function getTree() {
 
   traverse(jdata[0]);
   document.getElementById("tree").innerHTML = body;
+  document.getElementById("search").insertAdjacentHTML("afterend", `<datalist id="files"> ${datalist} </datalist>`);
 }
 
 // This function 'interceptClicks()' is modified from a snippet published on the website stackoverflow (https://stackoverflow.com/a/21518470) and is licensed as CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). The original stackoverflow anwser was made by Matt Way (https://stackoverflow.com/users/277697/matt-way) that was additionally modified by user2742371.
@@ -152,3 +157,38 @@ const interceptClicks = async () => {
 };
 
 interceptClicks();
+
+function expandSearch(path) {
+  if(branch) {
+    // Remove highlight of previous search
+    branch.classList.remove("bg-warning");
+  }
+
+  branch = document.getElementById("tree");
+
+  // Expand the tree to the desired file
+  for(f of path.split("/").slice(0, -1)) {    
+    for(b of branch.children) {      
+      if(b?.firstElementChild?.innerText === f) {
+        b.setAttribute("open", "");
+        branch = b;
+        break;
+      }
+    }
+  }
+
+  if(path.split("/").slice(-1)[0] !== "") {
+    // Highlight the desired file
+    for(b of branch.getElementsByTagName("a")) {
+      if(b.innerText === path.split("/").slice(-1)[0]) {
+        b.classList.add("bg-warning");
+        branch = b;
+        break;
+      }
+    }
+  } else {
+    // User searched for folder, not file
+    branch.classList.add("bg-warning");
+  }
+
+}
