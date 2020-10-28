@@ -29,7 +29,21 @@
     <title>B2-tree-browser</title>
   </head>
   <body>
-    <h1 class="text-center">B2-tree-browser</h1>
+    <!-- The following nav is modified from a snippet published on the website stackoverflow https://stackoverflow.com/a/43738936 and is licensed as CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). The original stackoverflow anwser was made by Zim (https://stackoverflow.com/users/171456/zim) that was additionally modified by URL Rewriter Bot  -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="navbar-nav mx-auto">
+        <span class="navbar-brand">B2-tree-browser</span>
+        <input
+          class="form-control text-center"
+          list="files"
+          autocomplete="off"
+          onchange="expandSearch(this.value)"
+          type="text"
+          placeholder="Search files and folders"
+          id="search"
+        />
+      </div>
+    </nav>
     <div class="container-fluid">
       <div class="row justify-content-lg-center">
         <nav id="tree" class="border border-primary rounded col-lg-4">
