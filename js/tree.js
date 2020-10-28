@@ -7,6 +7,7 @@ var foldername = "";
 var path = "";
 var datalist = "";
 var branch = null;
+const isDesktop = () => (screen.width >= 992);
 
 const imageFileExtension = [
   "gif",
@@ -105,7 +106,7 @@ async function getTree() {
 // This function 'interceptClicks()' is modified from a snippet published on the website stackoverflow (https://stackoverflow.com/a/21518470) and is licensed as CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). The original stackoverflow anwser was made by Matt Way (https://stackoverflow.com/users/277697/matt-way) that was additionally modified by user2742371.
 const interceptClicks = async () => {
   const result = await getTree();
-  if (screen.width >= 992) {
+  if (isDesktop()) {
     // This part of the function is modified from a snippet published on the website codeproject (https://www.codeproject.com/Answers/525918/Displaypluscontentplusofpluslinkplusinplusparticul#answer1). The original codeproject anwser was made by ramukhsakarp (https://www.codeproject.com/script/Membership/View.aspx?mid=7652198).
     $(document).ready(function () {
       $("#tree a").click(function (e) {
@@ -182,6 +183,7 @@ function expandSearch(path) {
     for(b of branch.getElementsByTagName("a")) {
       if(b.innerText === path.split("/").slice(-1)[0]) {
         b.classList.add("bg-warning");
+        if(isDesktop()) b.click(); // On desktop, auto load file into object.
         branch = b;
         break;
       }
