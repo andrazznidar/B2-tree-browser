@@ -165,6 +165,8 @@ function expandSearch(path) {
     branch.classList.remove("bg-warning");
   }
 
+  if(path == "") return; // User cleared search. Do not colour the whole tree
+
   branch = document.getElementById("tree");
 
   // Expand the tree to the desired file
