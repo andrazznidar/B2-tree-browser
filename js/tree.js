@@ -136,7 +136,7 @@ const interceptClicks = async () => {
 
         if (
           imageFileExtension.includes(
-            this.getAttribute("href").split(".").pop()
+            this.getAttribute("href").split(".").pop().toLowerCase()
           )
         ) {
           document
