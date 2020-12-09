@@ -156,7 +156,9 @@ interceptClicks();
 
 if (isDesktop()) {
   if (window.location.hash.substr(1) != "") {
-    expandSearch(decodeURIComponent(window.location.hash.substr(1)));
+    $(document).ready(function () {
+      expandSearch(decodeURIComponent(window.location.hash.substr(1)));
+    });
   }
 }
 
