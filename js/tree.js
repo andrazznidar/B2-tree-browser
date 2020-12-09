@@ -145,6 +145,9 @@ const interceptClicks = async () => {
 };
 
 window.addEventListener("popstate", () => {
+  document
+    .getElementById("dlButton")
+    .setAttribute("href", this.getAttribute("href"));
   urlAfterChange =
     urlPrefix + decodeURIComponent(window.location.hash.substr(1));
   loadFile(urlAfterChange);
