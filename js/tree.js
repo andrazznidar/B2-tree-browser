@@ -117,10 +117,8 @@ async function getTree() {
 // This function 'interceptClicks()' is modified from a snippet published on the website stackoverflow (https://stackoverflow.com/a/21518470) and is licensed as CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). The original stackoverflow anwser was made by Matt Way (https://stackoverflow.com/users/277697/matt-way) that was additionally modified by user2742371.
 const interceptClicks = async () => {
   if (window.location.hash.substr(1) != "") {
-    if (!isDesktop()) {
-      window.location.href =
-        urlPrefix + decodeURIComponent(window.location.hash.substr(1));
-    }
+    window.location.href =
+      urlPrefix + decodeURIComponent(window.location.hash.substr(1));
   }
   const result = await getTree();
   if (isDesktop()) {
@@ -153,14 +151,6 @@ window.addEventListener("popstate", () => {
 });
 
 interceptClicks();
-
-if (isDesktop()) {
-  if (window.location.hash.substr(1) != "") {
-    $(document).ready(function () {
-      expandSearch(decodeURIComponent(window.location.hash.substr(1)));
-    });
-  }
-}
 
 function expandSearch(path) {
   if (branch) {
