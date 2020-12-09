@@ -124,10 +124,6 @@ const interceptClicks = async () => {
   }
   const result = await getTree();
   if (isDesktop()) {
-    if (window.location.hash.substr(1) != "") {
-      expandSearch(decodeURIComponent(window.location.hash.substr(1)));
-    }
-
     // This part of the function is modified from a snippet published on the website codeproject (https://www.codeproject.com/Answers/525918/Displaypluscontentplusofpluslinkplusinplusparticul#answer1). The original codeproject anwser was made by ramukhsakarp (https://www.codeproject.com/script/Membership/View.aspx?mid=7652198).
     $(document).ready(function () {
       $("#tree a").click(function (e) {
@@ -150,7 +146,19 @@ const interceptClicks = async () => {
   }
 };
 
+window.addEventListener("popstate", () => {
+  urlAfterChange =
+    urlPrefix + decodeURIComponent(window.location.hash.substr(1));
+  loadFile(urlAfterChange);
+});
+
 interceptClicks();
+
+if (isDesktop()) {
+  if (window.location.hash.substr(1) != "") {
+    expandSearch(decodeURIComponent(window.location.hash.substr(1)));
+  }
+}
 
 function expandSearch(path) {
   if (branch) {
