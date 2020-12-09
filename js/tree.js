@@ -83,7 +83,13 @@ function traverse(obj) {
       url += encodeS3URI(path + obj);
       datalist += `<option value="${path + obj}" label="${obj}">`;
 
-      body += '<a href="' + url + '" target="_blank">' + obj + "</a>" + "<br/>";
+      body +=
+        '<a href="' +
+        url +
+        '" target="_blank" rel="noreferrer">' +
+        obj +
+        "</a>" +
+        "<br/>";
     }
   }
 }
@@ -110,53 +116,35 @@ async function getTree() {
 
 // This function 'interceptClicks()' is modified from a snippet published on the website stackoverflow (https://stackoverflow.com/a/21518470) and is licensed as CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). The original stackoverflow anwser was made by Matt Way (https://stackoverflow.com/users/277697/matt-way) that was additionally modified by user2742371.
 const interceptClicks = async () => {
+  if (window.location.hash.substr(1) != "") {
+    if (!isDesktop()) {
+      window.location.href =
+        urlPrefix + decodeURIComponent(window.location.hash.substr(1));
+    }
+  }
   const result = await getTree();
   if (isDesktop()) {
+    if (window.location.hash.substr(1) != "") {
+      expandSearch(decodeURIComponent(window.location.hash.substr(1)));
+    }
+
     // This part of the function is modified from a snippet published on the website codeproject (https://www.codeproject.com/Answers/525918/Displaypluscontentplusofpluslinkplusinplusparticul#answer1). The original codeproject anwser was made by ramukhsakarp (https://www.codeproject.com/script/Membership/View.aspx?mid=7652198).
     $(document).ready(function () {
       $("#tree a").click(function (e) {
         e.preventDefault();
 
         document
-          .getElementById("preview")
-          .setAttribute(
-            "class",
-            "invisible border border-primary rounded col-lg-7 ml-lg-1 center w-100"
-          );
-
-        // This workaround is modified from a snippet published on the website stackoverflow (https://stackoverflow.com/questions/676705/changing-data-content-on-an-object-tag-in-html) and is licenced as CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/). The stackoverflow anwser to the question titled 'Changing data content on an Object Tag in HTML' was made by Israel Gav (https://stackoverflow.com/users/4182640/israel-gav) and was published untitled.
-        let previewObject = document.getElementById("preview");
-        previewObject.setAttribute("data", this.getAttribute("href"));
-
-        let previewClone = previewObject.cloneNode(true);
-        let previewParent = previewObject.parentNode;
-
-        previewParent.removeChild(previewObject);
-        previewParent.appendChild(previewClone);
-
-        if (
-          imageFileExtension.includes(
-            this.getAttribute("href").split(".").pop().toLowerCase()
-          )
-        ) {
-          document
-            .getElementById("preview")
-            .setAttribute(
-              "class",
-              "border border-primary rounded col-lg-7 ml-lg-1 center h-100"
-            );
-        } else {
-          document
-            .getElementById("preview")
-            .setAttribute(
-              "class",
-              "border border-primary rounded col-lg-7 ml-lg-1 min-vh-100 center"
-            );
-        }
-
-        if (document.documentElement.scrollTop > 56) {
-          document.documentElement.scrollTop = 55;
-        }
+          .getElementById("dlButton")
+          .setAttribute("href", this.getAttribute("href"));
+        loadFile(this.getAttribute("href"));
+        window.history.pushState(
+          "",
+          "",
+          "#" +
+            encodeURIComponent(
+              this.getAttribute("href").substring(urlPrefix.length)
+            )
+        );
       });
     });
   }
@@ -199,5 +187,44 @@ function expandSearch(path) {
   } else {
     // User searched for folder, not file
     branch.classList.add("bg-warning");
+  }
+}
+
+function loadFile(link) {
+  document
+    .getElementById("preview")
+    .setAttribute(
+      "class",
+      "invisible border border-primary rounded col-lg-7 ml-lg-1 center w-100"
+    );
+
+  // This workaround is modified from a snippet published on the website stackoverflow (https://stackoverflow.com/questions/676705/changing-data-content-on-an-object-tag-in-html) and is licenced as CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/). The stackoverflow anwser to the question titled 'Changing data content on an Object Tag in HTML' was made by Israel Gav (https://stackoverflow.com/users/4182640/israel-gav) and was published untitled.
+  let previewObject = document.getElementById("preview");
+  previewObject.setAttribute("data", link);
+
+  let previewClone = previewObject.cloneNode(true);
+  let previewParent = previewObject.parentNode;
+
+  previewParent.removeChild(previewObject);
+  previewParent.appendChild(previewClone);
+
+  if (imageFileExtension.includes(link.split(".").pop().toLowerCase())) {
+    document
+      .getElementById("preview")
+      .setAttribute(
+        "class",
+        "border border-primary rounded col-lg-7 ml-lg-1 center h-100"
+      );
+  } else {
+    document
+      .getElementById("preview")
+      .setAttribute(
+        "class",
+        "border border-primary rounded col-lg-7 ml-lg-1 min-vh-100 center"
+      );
+  }
+
+  if (document.documentElement.scrollTop > 56) {
+    document.documentElement.scrollTop = 55;
   }
 }
